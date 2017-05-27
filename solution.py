@@ -49,13 +49,23 @@ def naked_twins(values):
     Returns:
         the values dictionary with the naked twins eliminated from peers.
     """
-
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
-
-def cross(A, B):
-    "Cross product of elements in A and elements in B."
-    pass
+    for unit in unitlist:
+        #find boxes with two possible values
+        gen1 = [box for box in unit if len(values[box]) == 2]
+        for twin1 in gen1:
+            gen2 = [box for box in gen1 if box != twin1]
+            for twin2 in gen2:
+                # if the values of the two twins match, then these are true naked twins
+                if values[twin1] == values[twin2]:
+                    for peer in unit:
+                        # eliminate the value of the twins from all other peers
+                        if peer == twin1 or peer == twin2:
+                            continue;
+                        values[peer] = values[peer].replace(values[twin1][0], '')
+                        values[peer] = values[peer].replace(values[twin1][1], '')
+    return values
 
 def grid_values(grid):
     """
@@ -136,6 +146,7 @@ def reduce_puzzle(values):
     while not stalled:
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values)
+        values = naked_twins(values)
         values = only_choice(values)
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
