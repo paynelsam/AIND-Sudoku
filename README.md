@@ -2,12 +2,30 @@
 ## Introductory Project: Diagonal Sudoku Solver
 
 # Question 1 (Naked Twins)
-Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+Q: How do we use constraint propagation to solve the naked twins problem?
+A: The Naked Twins strategy recognizes that if two boxes each have an identical
+set of two possible values (A and B), then those boxes can be considered "twins."
+One of these twins must hold either the value A or B, and the other twin will hold
+the other value. For example, if Twin1 holds A, Twin2 must hold B.
+Therefore, other boxes in the unit that contains both twins cannot take on the value
+of either A or B. Therefore, we can update the constraints on other boxes in the
+unit holding the pair of twins to narrow the list of possible values.
+
+This could also be applied to Tripplets (though it is not as common) and could be
+generalized to N boxes in the same unit if they share identical possible value
+sets of length N.
 
 # Question 2 (Diagonal Sudoku)
-Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+Q: How do we use constraint propagation to solve the diagonal sudoku problem?
+A: The diagnal Sudoku problem is solvable by the same method as the original Sudoku
+problem, but with two additional units added when considering constraints on the
+value of boxes.
+In the original Sudoku problem, once a value has been found for Box_1 (either
+a given known value, or found through "Only Choice") then other boxes in the same
+unit can be updated to eliminate the value of Box_1 from their possible values.
+This can be done because no two boxes in the same unit share a value.
+In the updated Diagnal Sudoku problem, diagnal units can be used to apply this
+constraint as well.
 
 ### Install
 
